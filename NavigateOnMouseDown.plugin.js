@@ -3,6 +3,7 @@
  * @version 1.0
  * @description Navigate On Mouse Down
  * @author Tony
+ * @source https://github.com/Legend-Master/discord-navigate-on-mouse-down
  */
 
 // @ts-check
