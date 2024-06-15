@@ -25,14 +25,22 @@ function onMouseDown(event) {
 			: event.target.parentElement instanceof HTMLElement
 			? event.target.parentElement
 			: undefined
+	if (!target) {
+		return
+	}
 	if (
-		target &&
-		// Channel (href check for excluding voice channels)
-		(target.matches(
-			':is([data-list-item-id*="channels__"][href], [data-list-item-id*="private-channels"]) *:not([role="button"])'
+		// Channel
+		// `a[data-list-item-id*="channels__"][href]`: channel but not voice channel
+		// `a[data-list-item-id*="private-channels"]`: direct message
+		// `div[data-list-item-id*="channels__"]`: thread
+		target.matches(
+			':is(a[data-list-item-id*="channels__"][href], a[data-list-item-id*="private-channels"], div[data-list-item-id*="channels__"])'
 		) ||
-			// Server
-			target.dataset.listItemId?.startsWith('guildsnav__'))
+		target.matches(
+			':is(a[data-list-item-id*="channels__"][href], a[data-list-item-id*="private-channels"], div[data-list-item-id*="channels__"]) *:not([role="button"])'
+		) ||
+		// Server
+		target.dataset.listItemId?.startsWith('guildsnav__')
 	) {
 		target.click()
 	}
