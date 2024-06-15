@@ -28,7 +28,9 @@ function onMouseDown(event) {
 	if (
 		target &&
 		// Channel (href check for excluding voice channels)
-		(target.matches('[data-list-item-id*="channels__"][href] *:not([role="button"])') ||
+		(target.matches(
+			':is([data-list-item-id*="channels__"][href], [data-list-item-id*="private-channels"] *:not([role="button"])'
+		) ||
 			// Server
 			target.dataset.listItemId?.startsWith('guildsnav__'))
 	) {
