@@ -11,7 +11,7 @@
 /**
  * @param {MouseEvent} event
  */
-function onMouseDown(event) {
+function getNavigationButton(event) {
 	// Only left / primary
 	if (event.button !== 0) {
 		return
@@ -42,16 +42,43 @@ function onMouseDown(event) {
 		// Server
 		target.dataset.listItemId?.startsWith('guildsnav__')
 	) {
+		return target
+	}
+}
+
+/**
+ * @param {MouseEvent} event
+ */
+function onMouseDown(event) {
+	const target = getNavigationButton(event)
+	if (target) {
 		target.click()
+	}
+}
+
+/**
+ * @param {MouseEvent} event
+ */
+function onClick(event) {
+	if (!event.isTrusted) {
+		return
+	}
+	const target = getNavigationButton(event)
+	if (target) {
+		event.stopImmediatePropagation()
+		event.stopPropagation()
+		event.preventDefault()
 	}
 }
 
 function start() {
 	document.addEventListener('mousedown', onMouseDown)
+	document.addEventListener('click', onClick, { capture: true })
 }
 
 function stop() {
 	document.removeEventListener('mousedown', onMouseDown)
+	document.addEventListener('click', onClick, { capture: true })
 }
 
 module.exports = () => ({
