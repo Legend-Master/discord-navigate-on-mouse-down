@@ -1,6 +1,6 @@
 /**
  * @name NavigateOnMouseDown
- * @version 1.0
+ * @version 1.1
  * @description Navigate On Mouse Down
  * @author Tony
  * @source https://github.com/Legend-Master/discord-navigate-on-mouse-down
@@ -78,7 +78,7 @@ function start() {
 
 function stop() {
 	document.removeEventListener('mousedown', onMouseDown)
-	document.addEventListener('click', onClick, { capture: true })
+	document.removeEventListener('click', onClick, { capture: true })
 }
 
 module.exports = () => ({
